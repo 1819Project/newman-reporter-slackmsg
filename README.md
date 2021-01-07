@@ -17,7 +17,7 @@ or
 
 ## Usage
 ```CLI
- newman run <collectionFile> -e <environmentFile> --suppress-exit-code -r slackreporter --reporter-slackreporterwebhookurl '<webhookurl>'
+ newman run <collectionFile> -e <environmentFile> --suppress-exit-code -r slackreporter --reporter-slackreporter-webhookurl '<webhookurl>'
 ```
 
 ## Usage with channel override bot
