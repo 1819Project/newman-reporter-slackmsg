@@ -5,7 +5,11 @@ var jsonminify = require("jsonminify");
 let messageSize;
 
 // creates message for slack
+<<<<<<< HEAD
 function slackMessage(stats, timings, failures, executions, maxMessageSize, collection, environment, channel, reportingUrl, limitFailures) {
+=======
+function slackMessage(stats, timings, failures, maxMessageSize, collection, environment, channel, buildUrl) {
+>>>>>>> a4d4ba5 (添加build url参数)
     messageSize = maxMessageSize;
     let parsedFailures = parseFailures(failures);
     let skipCount = getSkipCount(executions);
@@ -14,7 +18,7 @@ function slackMessage(stats, timings, failures, executions, maxMessageSize, coll
         {
             "mrkdwn_in": ["text"],
             "color": "#FF0000",
-            "author_name": "Automatred API testing",
+            "author_name": "Automatred API Testing",
             "title": ":fire: Failures :fire:",
             "fields": [
                 ${limitFailures > 0 ? failMessage(parsedFailures.splice(0, limitFailures)) : failMessage(parsedFailures)}
@@ -103,6 +107,7 @@ function slackMessage(stats, timings, failures, executions, maxMessageSize, coll
             },
             {
                 "type": "section",
+<<<<<<< HEAD
                 "fields": [
                 {
                     "type": "mrkdwn",
@@ -113,6 +118,15 @@ function slackMessage(stats, timings, failures, executions, maxMessageSize, coll
                     "text": "Total: ${stats.assertions.total}  Failed: ${stats.assertions.failed}"
                 }
             ]
+=======
+                "text": {
+                    "type": "mrkdwn",
+                    "text": "Details: ${buildUrl}"
+                }
+            },
+            {
+                "type": "divider"
+>>>>>>> a4d4ba5 (添加build url参数)
             },
             {
                 "type": "divider"
@@ -245,9 +259,11 @@ async function send(url, message, token) {
     let result;
     try {
         result = await axios(payload);
+        console.log(`Message are: ${message}`);
     } catch (e) {
         result = false;
         console.error(`Error in sending message to slack ${e}`);
+        console.log(`Message are: ${message}`);
     }
     return result;
 }
