@@ -117,7 +117,7 @@ function slackMessage(stats, timings, failures, executions, maxMessageSize, coll
 =======
                 "text": {
                     "type": "mrkdwn",
-                    "text": "Details: ${buildUrl}"
+                    "text": "More Details: ${buildUrl}"
                 }
             },
             {
