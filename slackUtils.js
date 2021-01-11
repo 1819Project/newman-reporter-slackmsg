@@ -5,11 +5,7 @@ var jsonminify = require("jsonminify");
 let messageSize;
 
 // creates message for slack
-<<<<<<< HEAD
 function slackMessage(stats, timings, failures, executions, maxMessageSize, collection, environment, channel, reportingUrl, limitFailures) {
-=======
-function slackMessage(stats, timings, failures, maxMessageSize, collection, environment, channel, buildUrl) {
->>>>>>> a4d4ba5 (添加build url参数)
     messageSize = maxMessageSize;
     let parsedFailures = parseFailures(failures);
     let skipCount = getSkipCount(executions);

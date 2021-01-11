@@ -28,6 +28,7 @@ or
 
 ## Reporter Options Optionals
 ```
+<<<<<<< HEAD
  --reporter-slackmsg-messageSize '<messageSize>' e.g 150
  --reporter-slackmsg-token '<bearer token>' e.g xoxb-XXXXXXXXXXXX-TTTTTTTTTTTTTT
  --reporter-slackmsg-channel '<channel>' e.g #general
@@ -35,7 +36,7 @@ or
  --reporter-slackmsg-collection '<collectionName> e.g test.json
  --reporter-slackmsg-environment '<environmentName> e.g env.json
  --reporter-slackmsg-reportingurl '<URL> e.g https://127.0.1/index.html
-  --reporter-slackmsg-limitFailures '<limitFailures>; e.g 5
+ --reporter-slackmsg-limitFailures '<limitFailures>; e.g 5
 
 ```
 
@@ -59,9 +60,14 @@ Option to use bearer token for slack bots for channel override
 **channel**
 Option to select channel or user receive the result
 
+<<<<<<< HEAD
 **failuresChannel**
 Option to select channel or user to receive failures
 
 **limitFailures**
 Option to limit the amount failures shown in slack
 
+=======
+**buildurl**
+The circle ci build url, you can invoke the variable ${CIRCLE_BUILD_URL} 
+>>>>>>> 6b73131 (Update  readme)
