@@ -14,7 +14,7 @@ function slackMessage(stats, timings, failures, executions, maxMessageSize, coll
         {
             "mrkdwn_in": ["text"],
             "color": "#FF0000",
-            "author_name": "Automatred API Testing",
+            "author_name": "Automated API Testing",
             "title": ":fire: Failures :fire:",
             "fields": [
                 ${limitFailures > 0 ? failMessage(parsedFailures.splice(0, limitFailures)) : failMessage(parsedFailures)}
