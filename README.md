@@ -43,7 +43,7 @@ or
 
 ## Reporter Options
 **webhookurl** 
-Webhook URL to point to the slack api where results are published
+Webhook URL to point to the slack api where results are published,If you have multiple channels, you must use the '#' to separate. eg:https://hooks.slack.com/services/TXXX#https://hooks.slack.com/services/NNN
 
 **collection** 
 Option to add the name of collection file onto the message

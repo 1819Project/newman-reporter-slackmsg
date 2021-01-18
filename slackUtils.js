@@ -255,11 +255,9 @@ async function send(url, message, token) {
     let result;
     try {
         result = await axios(payload);
-        console.log(`Message are: ${message}`);
     } catch (e) {
         result = false;
         console.error(`Error in sending message to slack ${e}`);
-        console.log(`Message are: ${message}`);
     }
     return result;
 }
