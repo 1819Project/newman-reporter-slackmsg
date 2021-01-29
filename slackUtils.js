@@ -40,7 +40,6 @@ function slackMessage(stats, timings, failures, executions, maxMessageSize, coll
     return jsonminify(`
     {
         "channel": "${channel}",
-        "text": "API test done",
         "blocks": [
             {
                 "type": "divider"
