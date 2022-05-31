@@ -1,12 +1,12 @@
 {
-  "name": "newman-reporter-slackreporter",
-  "version": "1.4.2",
+  "name": "@1819project/newman-reporter-slackmsg",
+  "version": "1.0.0",
   "description": "newman report to slack",
   "main": "index.js",
 
   "repository": {
     "type": "git",
-    "url": "https://github.com/stephenwang1011/newman-reporter-slackmsg"
+    "url": "https://github.com/1819Project/newman-reporter-slackmsg"
   },
   "keywords": [
     "newman",
@@ -18,9 +18,9 @@
   "author": "398733146@qq.com",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/stephenwang1011/newman-reporter-slackmsg/issues"
+    "url": "https://github.com/1819Project/newman-reporter-slackmsg/issues"
   },
-  "homepage": "https://github.com/stephenwang1011/newman-reporter-slackmsg#readme",
+  "homepage": "https://github.com/1819Project/newman-reporter-slackmsg#readme",
   "dependencies": {
     "@types/node": "^14.0.13",
     "axios": "^0.19.2",

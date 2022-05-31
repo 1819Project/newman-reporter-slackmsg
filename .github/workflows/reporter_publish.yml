@@ -1,0 +1,50 @@
+name: Quil Publish
+on:       
+  push:
+    branches:  
+      - '**'
+env:
+  GITHUB_PACKAGE_READ_TOKEN: ${{ secrets.GH_PACKAGE_READ_TOKEN_1819BOT }}
+jobs:
+  main:
+    runs-on: ubuntu-latest
+    env:
+      NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
+    steps:
+      - uses: actions/checkout@master
+      - uses: actions/setup-node@master
+        with:
+          node-version: 14.17.1
+          registry-url: https://npm.pkg.github.com/
+          scope: '@1819project'
+      - name: Print Github workflow context
+        run: echo '${{ toJSON(github) }}'
+      - name: Check if version is already published
+        run: |
+          EXISTING_VERSIONS=$(echo $(npm view . versions) | tr -d "[],\'")
+          PACKAGE_VERSION=$(npm run -s env echo '$npm_package_version')
+          for VERSION in $EXISTING_VERSIONS
+          do
+            if [[ "$VERSION" = "$PACKAGE_VERSION" ]]
+            then 
+              echo "Version $PACKAGE_VERSION already exists, exiting"
+              exit 1;
+            fi;
+          done
+      - name: Dry-run publish to GitHub Package Registry
+        if: ${{ ! (github.event_name == 'push' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master')) }}
+        # We remove the .npmrc so that the repo file isn't used for publish
+        # And we instead used the one created in `actions/setup-node` which refs NODE_AUTH_TOKEN
+        run: |
+          if [ -f ".npmrc" ]; then
+            rm .npmrc
+          fi
+          npm publish --dry-run
+      - name: Publish to GitHub Package Registry
+        if: ${{ github.event_name == 'push' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master') }}
+        run: |
+          if [ -f ".npmrc" ]; then
+            rm .npmrc
+          fi
+          npm publish
+          echo "Version $(npm run -s env echo '$npm_package_version') published."
