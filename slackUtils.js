@@ -1,10 +1,10 @@
-const prettyms = require('pretty-ms');
 const axios = require('axios').default;
 var jsonminify = require("jsonminify");
 
 let messageSize;
 
 // creates message for slack
+<<<<<<< HEAD
 function slackMessage(stats, timings, failures, executions, maxMessageSize, collection, environment, channel, reportingUrl, limitFailures) {
     messageSize = maxMessageSize;
     let parsedFailures = parseFailures(failures);
@@ -170,6 +170,15 @@ function getSkipCount(executions) {
 }
 
 
+=======
+    return jsonminify(`
+    {
+        "channel": "${channel}",
+        ${failures.length > 0 ? failureMessage : '' }
+       }`);
+}
+
+>>>>>>> 4f45039 (only_failures)
 // Takes fail report and parse it for further processing
 function parseFailures(failures) {
     return failures.reduce((acc, failure, index) => {
@@ -207,7 +216,7 @@ function failMessage(parsedFailures) {
     return parsedFailures.map((failure) => {
         return `
         {
-            "title": "${failure.name}",
+            "title": "*\`${failure.name}\`*",
             "short": false
         },
         ${failErrors(failure.tests)}`;
