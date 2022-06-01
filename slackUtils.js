@@ -1,11 +1,10 @@
-const prettyms = require('pretty-ms');
 const axios = require('axios').default;
 var jsonminify = require("jsonminify");
 
 let messageSize;
 
 // creates message for slack
-function slackMessage(stats, timings, failures, maxMessageSize, collection, environment, channel, buildUrl) {
+function slackMessage(failures, maxMessageSize,channel) {
     messageSize = maxMessageSize;
     let parsedFailures = parseFailures(failures);
     let failureMessage = `
@@ -20,101 +19,11 @@ function slackMessage(stats, timings, failures, maxMessageSize, collection, envi
             ]
         }
     ]`
-    let successMessage = `
-    "attachments": [
-        {
-            "mrkdwn_in": ["text"],
-            "color": "#008000",
-            "author_name": "Automated API Testing",
-            "title": ":white_check_mark: All Passed :white_check_mark:"
-        }
-    ]`
     return jsonminify(`
     {
         "channel": "${channel}",
-        "blocks": [
-            {
-                "type": "divider"
-            },
-            ${collectionAndEnvironentFileBlock(collection, environment)}
-            {
-                "type": "section",
-                "text": {
-                    "type": "mrkdwn",
-                    "text": "*Test Summary*"
-                }
-            },
-            {
-                "type": "section",
-                "fields": [
-                    {
-                        "type": "mrkdwn",
-                        "text": "Total Tests:"
-                    },
-                    {
-                        "type": "mrkdwn",
-                        "text": "${stats.requests.total}"
-                    },
-                    {
-                        "type": "mrkdwn",
-                        "text": "Test Passed:"
-                    },
-                    {
-                        "type": "mrkdwn",
-                        "text": "${stats.requests.total - parsedFailures.length}"
-                    },
-                    {
-                        "type": "mrkdwn",
-                        "text": "Test Failed:"
-                    },
-                    {
-                        "type": "mrkdwn",
-                        "text": "${parsedFailures.length}"
-                    },
-                    {
-                        "type": "mrkdwn",
-                        "text": "Test Assertions:"
-                    },
-                    {
-                        "type": "mrkdwn",
-                        "text": "Total: ${stats.assertions.total}  Failed: ${stats.assertions.failed}"
-                    },
-                    {
-                        "type": "mrkdwn",
-                        "text": "Test Duration:"
-                    },
-                    {
-                        "type": "mrkdwn",
-                        "text": "${prettyms(timings.completed - timings.started)}"
-                    },
-                ],
-            },
-            {
-                "type": "section",
-                "text": {
-                    "type": "mrkdwn",
-                    "text": "More Details: ${buildUrl}"
-                }
-            },
-            {
-                "type": "divider"
-            },
-        ],
-        ${failures.length > 0 ? failureMessage : successMessage }
+        ${failures.length > 0 ? failureMessage : '' }
        }`);
-}
-
-function collectionAndEnvironentFileBlock(collection, environment) {
-    if (collection) {
-        return `{
-            "type": "section",
-			"text": {
-				"type": "mrkdwn",
-				"text": "Collection: ${collection} \\n Environment: ${environment ? environment : '' }"
-			}
-        }, `
-    }
-    return '';
 }
 
 // Takes fail report and parse it for further processing
@@ -154,7 +63,7 @@ function failMessage(parsedFailures) {
     return parsedFailures.reduce((acc, failure) => {
         acc = acc + `
         {
-            "title": "${failure.name}",
+            "title": "*\`${failure.name}\`*",
             "short": false
         },
         ${failErrors(failure.tests)}`
