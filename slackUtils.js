@@ -4,7 +4,6 @@ var jsonminify = require("jsonminify");
 let messageSize;
 
 // creates message for slack
-<<<<<<< HEAD
 function slackMessage(stats, timings, failures, executions, maxMessageSize, collection, environment, channel, reportingUrl, limitFailures) {
     messageSize = maxMessageSize;
     let parsedFailures = parseFailures(failures);
@@ -103,7 +102,6 @@ function slackMessage(stats, timings, failures, executions, maxMessageSize, coll
             },
             {
                 "type": "section",
-<<<<<<< HEAD
                 "fields": [
                 {
                     "type": "mrkdwn",
@@ -114,7 +112,6 @@ function slackMessage(stats, timings, failures, executions, maxMessageSize, coll
                     "text": "Total: ${stats.assertions.total}  Failed: ${stats.assertions.failed}"
                 }
             ]
-=======
                 "text": {
                     "type": "mrkdwn",
                     "text": "More Details: ${buildUrl}"
@@ -122,7 +119,6 @@ function slackMessage(stats, timings, failures, executions, maxMessageSize, coll
             },
             {
                 "type": "divider"
->>>>>>> a4d4ba5 (添加build url参数)
             },
             {
                 "type": "divider"
@@ -169,16 +165,6 @@ function getSkipCount(executions) {
     }, 0);
 }
 
-
-=======
-    return jsonminify(`
-    {
-        "channel": "${channel}",
-        ${failures.length > 0 ? failureMessage : '' }
-       }`);
-}
-
->>>>>>> 4f45039 (only_failures)
 // Takes fail report and parse it for further processing
 function parseFailures(failures) {
     return failures.reduce((acc, failure, index) => {
