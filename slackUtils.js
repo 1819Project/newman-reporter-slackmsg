@@ -1,3 +1,4 @@
+const prettyms = require('pretty-ms');
 const axios = require('axios').default;
 var jsonminify = require("jsonminify");
 
@@ -13,16 +14,13 @@ function slackMessage(stats, timings, failures, executions, maxMessageSize, coll
         {
             "mrkdwn_in": ["text"],
             "color": "#FF0000",
-            "author_name": "Automated API Testing",
+            "author_name": "Newman Tests",
             "title": ":fire: Failures :fire:",
             "fields": [
                 ${limitFailures > 0 ? failMessage(parsedFailures.splice(0, limitFailures)) : failMessage(parsedFailures)}
             ],
             "footer": "Newman Test",
             "footer_icon": "https://platform.slack-edge.com/img/default_application_icon.png"
-                ${failMessage(parsedFailures)}
-            ]
-
         }
     ]`
     let successMessage = `
@@ -30,7 +28,7 @@ function slackMessage(stats, timings, failures, executions, maxMessageSize, coll
         {
             "mrkdwn_in": ["text"],
             "color": "#008000",
-            "author_name": "Automated API testing",
+            "author_name": "Newman Tests",
             "title": ":white_check_mark: All Passed :white_check_mark:",
             "footer": "Newman Test",
             "footer_icon": "https://platform.slack-edge.com/img/default_application_icon.png"
@@ -112,13 +110,6 @@ function slackMessage(stats, timings, failures, executions, maxMessageSize, coll
                     "text": "Total: ${stats.assertions.total}  Failed: ${stats.assertions.failed}"
                 }
             ]
-                "text": {
-                    "type": "mrkdwn",
-                    "text": "More Details: ${buildUrl}"
-                }
-            },
-            {
-                "type": "divider"
             },
             {
                 "type": "divider"
@@ -165,6 +156,7 @@ function getSkipCount(executions) {
     }, 0);
 }
 
+
 // Takes fail report and parse it for further processing
 function parseFailures(failures) {
     return failures.reduce((acc, failure, index) => {
@@ -202,7 +194,7 @@ function failMessage(parsedFailures) {
     return parsedFailures.map((failure) => {
         return `
         {
-            "title": "*\`${failure.name}\`*",
+            "title": "${failure.name}",
             "short": false
         },
         ${failErrors(failure.tests)}`;
