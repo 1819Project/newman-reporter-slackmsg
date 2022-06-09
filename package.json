@@ -3,12 +3,6 @@
   "version": "1.0.6",
   "description": "newman report to slack",
   "main": "index.js",
-  "scripts": {
-    "lint": "eslint index/js",
-    "test": "jest",
-    "prepack": "npm run test",
-    "pack": "npm pack && npm install -g newman-reporter-slack-1.0.0.tgz"
-  },
   "repository": {
     "type": "git",
     "url": "https://github.com/1819Project/newman-reporter-slackmsg"
