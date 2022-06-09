@@ -10,6 +10,7 @@ function SlackNewmanReporter(emitter, reporterOptions) {
     const webhookUrl = reporterOptions.webhookurl;
     const messageSize = reporterOptions.messageSize || 100;
     const collection = reporterOptions.collection || '';
+    const collectionName = reporterOptions.collectionName || '';
     const environment = reporterOptions.environment || '';
     const token = reporterOptions.token || '';
     const reportingUrl = reporterOptions.reportingurl || '';
@@ -28,7 +29,7 @@ function SlackNewmanReporter(emitter, reporterOptions) {
             channel = reporterOptions.failuresChannel;
         }
 
-        slackUtils.send(webhookUrl, slackUtils.slackMessage(run.stats, run.timings, run.failures, run.executions, messageSize, collection, environment, channel, reportingUrl, limitFailures), token);
+        slackUtils.send(webhookUrl, slackUtils.slackMessage(run.stats, run.timings, run.failures, run.executions, messageSize, collection, collectionName, environment, channel, reportingUrl, limitFailures), token);
     });
 
     function missingReporterOptions(reporterOptions) {
