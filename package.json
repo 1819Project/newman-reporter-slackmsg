@@ -1,6 +1,6 @@
 {
   "name": "@1819project/newman-reporter-slackmsg",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "newman report to slack",
   "main": "index.js",
   "repository": {
